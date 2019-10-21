@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+ 
+{% block title %}
+Listagem de pessoas
+{% endblock title %}
+ 
+{% block content %}
+<form method="GET">
+    <input type="text" name="busca" placeholder="Digite sua busca">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+ 
+<table class="table">
+      <thead>
+            <tr>
+                  <th>Nome</th>
+                  <th>Endereco</th>
+                  <th>Descricao</th>
+                  <th>Nota</th>
+                </tr>
+          </thead>
+      <tbody>
+          {% for pessoa in lista %}
+            <tr>
+                  <td >{{ pessoa.nome }}</td>
+                  <td>{{ pessoa.endereco }}</td>
+                  <td>{{ pessoa.descricao }}</td>
+                  <td>{{ pessoa.notas }}</td>
+             
+             
+                </tr>
+          {% endfor %}
+          </tbody>
+</table>
+
+ 
+{% endblock content %}

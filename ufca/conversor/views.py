@@ -14,7 +14,17 @@ def enviar_arquivo(request):
         _, created = Arquivo.objects.update_or_create(
             nome = collumn[0],
             endereco = collumn[1],
-            descricao = collumn[2]
+            descricao = collumn[2],
+            notas = collumn[3]
         )
     context = {}
     return render(request,template, context)
+def pessoa_list(request):
+    template = 'listar_pessoas.html'
+    query = request.GET.get("busca")
+    if query:
+        pessoa = Arquivo.objects.filter(model__icontais = query)
+    else:
+        pessoa = Arquivo.objects.all()
+    pessoas = {'lista':pessoa}
+    return render(request, template, pessoas)
