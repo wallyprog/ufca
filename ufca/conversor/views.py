@@ -23,8 +23,8 @@ def pessoa_list(request):
     template = 'listar_pessoas.html'
     query = request.GET.get("busca")
     if query:
-        pessoa = Arquivo.objects.filter(model__icontais = query)
+        pessoa = Arquivo.objects.filter(model__icontais = query).order_by('-notas')
     else:
-        pessoa = Arquivo.objects.all()
+        pessoa = Arquivo.objects.all().order_by('-notas')
     pessoas = {'lista':pessoa}
     return render(request, template, pessoas)
