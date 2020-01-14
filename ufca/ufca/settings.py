@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'conversor',
 ]
 
+LOGIN_URL = '/login'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fsociety',
-        'USER': 'postgres',
+        'USER': 'wallyson',
         'PASSWORD': '28327yzf',
         'HOST': 'localhost',
         'PORT': '5432',
