@@ -1,32 +1,64 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <meta charset="UTF-8">
+  <title>Autenticação</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>
-        {% block title %}
-        {% endblock %}
-
-    </title>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">Sistema Ciencia </a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down"></ul>
-        </div>
-    </nav>
-    <div class="container">
-        {% block content %}
-        {% endblock %}
+  <nav>
+    <div class="nav-wrapper">
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {%if request.user.is_staff %}
+        <li>
+          <a href="{% url 'listar_usuario' %}">Listar Usuários</a>
+        </li>
+        {% endif %}
+        {%if request.user.is_staff %}
+        <li>
+          <a href="{% url 'registrar_usuario' %}">Registrar Usuário</a>
+        </li>
+        {% endif %}
+        <li>
+          {% if request.user.is_authenticated %}
+        <li>Olá, {{ request.user.username }}</li>
+        <li><a href="{% url 'deslogar' %}">Logout</a></li>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        </li>
+      </ul>
     </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  </nav>
+  <div class="container">
+    {% block content %}
+
+    {% endblock %}
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('select').material_select();
+    });
+    {% if messages %}
+    {% for message in messages %}
+    $(document).ready(function () {
+      Materialize.toast('{{ message }}', 4000);
+    });
+    {% endfor %}
+    {% endif %}
+
+  </script>
 </body>
 
 </html>
